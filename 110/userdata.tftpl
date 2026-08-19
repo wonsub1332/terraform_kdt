@@ -1,0 +1,4 @@
+#!/bin/bash
+sed -i 's/Listen 80/Listen ${port_number}/' /etc/httpd/conf/httpd.conf
+systemctl enable httpd
+systemctl restart httpd

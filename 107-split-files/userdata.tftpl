@@ -1,0 +1,25 @@
+#!/bin/bash
+yum -y install httpd 
+sed -i 's/Listen 80/Listen ${port_number}/' /etc/httpd/conf/httpd.conf
+systemctl enable httpd
+systemctl restart httpd
+
+TOKEN=$(curl -sS -X PUT \
+  "http://169.254.169.254/latest/api/token" \
+  -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
+
+INSTANCE_ID=$(curl -sS \
+  -H "X-aws-ec2-metadata-token: $TOKEN" \
+  http://169.254.169.254/latest/meta-data/instance-id)
+
+AZ=$(curl -sS \
+  -H "X-aws-ec2-metadata-token: $TOKEN" \
+  http://169.254.169.254/latest/meta-data/placement/availability-zone)
+
+cat > /var/www/html/index.html <<EOF
+<html>
+    <h1>Hello From Your Linux Web Server running on port ${port_number}</h1>
+    <h2>Instance ID: $INSTANCE_ID</h2>
+    <h2>Availability Zone: $AZ</h2>
+</html>
+EOF
