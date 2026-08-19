@@ -23,11 +23,11 @@ data "aws_ami" "al2023" {
   }
 }
 
-data "aws_ami" "web_ami"{
+data "aws_ami" "web_ami" {
   most_recent = true
-  owners = [ "self" ]
+  owners      = ["self"]
   filter {
-    name = "name"
+    name   = "name"
     values = ["web-*"]
   }
 }
@@ -47,35 +47,35 @@ variable "instance_type" {
 variable "key_name" {
   type = string
 }
-variable "ssh_cidr_blocks"{
-    type = list(string)
-    default = [ ]
+variable "ssh_cidr_blocks" {
+  type    = list(string)
+  default = []
 }
-variable "db_info"{
+variable "db_info" {
   type = map(string)
   default = {
-    engine = "mysql"
-    version="8.0"
+    engine         = "mysql"
+    version        = "8.0"
     instance_class = "db.t3.micro"
-    db_name="terraformdb"
-    username="master"
+    db_name        = "terraformdb"
+    username       = "master"
   }
 }
 variable "db_password" {
-  type = string
+  type      = string
   sensitive = true
-  default = "tf-password"
+  default   = "tf-password"
 }
 
 variable "enable_monitoring" {
-  type = bool
+  type    = bool
   default = false
 }
 variable "asg_info" {
   type = map(number)
   default = {
-    min = 2
-    max = 4
-    desired = 2
+    min     = 0
+    max     = 0
+    desired = 0
   }
 }
