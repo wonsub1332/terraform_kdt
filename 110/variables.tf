@@ -50,4 +50,10 @@ variable "db_security_group_name"{
 
 variable "db_password" {
   type = string
+  sensitive = true
+}
+
+variable "common_tag" {
+  description = "Common tag"
+  type = map(string)
 }
