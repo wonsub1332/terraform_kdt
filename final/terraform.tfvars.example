@@ -5,7 +5,21 @@ key_name = "KEYNAME"
 
 enable_monitoring = false
 
-ssh_cidr_blocks = [ "" ]
+ssh_cidr_blocks = [ "YOUR_PUBLIC_IP/32" ]
 
-db_password = ""
+db_password = "CHANGE_ME"
 
+db_info = {
+    engine         = "mysql"
+    version        = "8.0"
+    instance_class = "CHANGE_ME"
+    db_name        = "DB_NAME"
+    username       = "USERNAME"
+
+}
+asg_info = {
+    min     = 2
+    max     = 4
+    desired = 2
+
+}
