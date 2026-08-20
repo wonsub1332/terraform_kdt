@@ -28,6 +28,7 @@ resource "aws_autoscaling_group" "web_asg" {
   min_size            = var.asg_info.min
   max_size            = var.asg_info.max
   desired_capacity    = var.asg_info.desired
+  default_instance_warmup = 120
 
   instance_refresh {
     strategy = "Rolling"
@@ -35,5 +36,20 @@ resource "aws_autoscaling_group" "web_asg" {
       min_healthy_percentage = 50
       instance_warmup        = 60
     }
+  }
+  
+}
+
+resource "aws_autoscaling_policy" "cpu_target_tracking" {
+  name                   = "web-asg-cpu-target-tracking"
+  policy_type            = "TargetTrackingScaling"
+  autoscaling_group_name = aws_autoscaling_group.web_asg.name
+
+  target_tracking_configuration {
+    predefined_metric_specification {
+      predefined_metric_type = "ASGAverageCPUUtilization"
+    }
+
+    target_value = 50.0
   }
 }
