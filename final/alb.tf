@@ -35,7 +35,7 @@ resource "aws_lb_listener_rule" "lb_rule" {
 }
 resource "aws_lb_target_group" "lb_target" {
   name     = "alb-targetgroup"
-  port     = 80
+  port     = var.server_port
   protocol = "HTTP"
   vpc_id   = aws_vpc.final_vpc.id
 

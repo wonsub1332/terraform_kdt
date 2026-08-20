@@ -12,7 +12,7 @@ db_password = "CHANGE_ME"
 db_info = {
     engine         = "mysql"
     version        = "8.0"
-    instance_class = "CHANGE_ME"
+    instance_class = "db.t3.micro"
     db_name        = "DB_NAME"
     username       = "USERNAME"
 
