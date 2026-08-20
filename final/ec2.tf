@@ -5,7 +5,7 @@ resource "aws_key_pair" "mykey" {
 resource "aws_instance" "web_image_server" {
   ami                    = data.aws_ami.al2023.image_id
   instance_type          = var.instance_type
-  vpc_security_group_ids = [aws_security_group.web_sg.id, aws_security_group.ssh_sg.id]
+  vpc_security_group_ids = [aws_security_group.image_sg.id, aws_security_group.ssh_sg.id]
   subnet_id              = aws_subnet.pub_c.id
   key_name               = aws_key_pair.mykey.key_name
   tags = {

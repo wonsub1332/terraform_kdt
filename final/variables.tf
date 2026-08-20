@@ -64,7 +64,6 @@ variable "db_info" {
 variable "db_password" {
   type      = string
   sensitive = true
-  default   = "tf-password"
 }
 
 variable "enable_monitoring" {
@@ -74,8 +73,8 @@ variable "enable_monitoring" {
 variable "asg_info" {
   type = map(number)
   default = {
-    min     = 0
-    max     = 0
-    desired = 0
+    min     = 2
+    max     = 4
+    desired = 2
   }
 }

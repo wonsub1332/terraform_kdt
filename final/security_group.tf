@@ -7,8 +7,8 @@ resource "aws_security_group" "web_sg" {
   ingress {
     from_port = var.server_port
     to_port   = var.server_port
-    #security_groups = [aws_security_group.alb_sg.id]
-    cidr_blocks = ["0.0.0.0/0"]
+    security_groups = [aws_security_group.alb_sg.id]
+    # cidr_blocks = ["0.0.0.0/0"]
     protocol    = "tcp"
   }
   egress {
@@ -75,6 +75,29 @@ resource "aws_security_group" "alb_sg" {
   ingress {
     from_port   = 80
     to_port     = 80
+    cidr_blocks = ["0.0.0.0/0"]
+    protocol    = "tcp"
+  }
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = -1
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+resource "aws_security_group" "image_sg" {
+  vpc_id      = aws_vpc.final_vpc.id
+  description = "allow_http_instance_for_image"
+  tags = {
+    Name = "image_sg"
+  }
+  ingress {
+    from_port = var.server_port
+    to_port   = var.server_port
     cidr_blocks = ["0.0.0.0/0"]
     protocol    = "tcp"
   }
