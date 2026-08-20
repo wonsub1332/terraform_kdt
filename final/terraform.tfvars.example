@@ -1,0 +1,11 @@
+server_port   = 80
+instance_type = "t3.micro"
+
+key_name = "KEYNAME"
+
+enable_monitoring = false
+
+ssh_cidr_blocks = [ "" ]
+
+db_password = ""
+
